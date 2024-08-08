@@ -198,6 +198,35 @@ if(orocos_kdl_FOUND AND(${orocos_kdl_VERSION} VERSION_GREATER ${orocos_kdl_VERSI
   endforeach()
 endif()
 
+ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
+ament_export_dependencies(
+    cv_bridge
+    geometry_msgs
+    image_geometry
+    image_transport
+    kdl_parser
+    nav_msgs
+    sensor_msgs
+    std_msgs
+    std_srvs
+    tf2_ros
+    visp_bridge
+)
+
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
+
+install(
+  TARGETS ${PROJECT_NAME}_common
+  EXPORT export_${PROJECT_NAME}
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES DESTINATION include
+)
+
 # Installation
 install(
   TARGETS
